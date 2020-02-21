@@ -1,0 +1,11 @@
+en:
+  currencies:
+    volume_24h: Day Volume
+    volume: Volume
+    prev_close: Previous Closing Price
+    last: Last Price
+    bid: Bid
+    ask: Ask
+    current_time: Recorded At
+    time: Time
+    price: Price

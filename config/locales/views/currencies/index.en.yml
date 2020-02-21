@@ -1,0 +1,10 @@
+en:
+  currencies:
+    welcome: PiggyBank
+    name: Currency Name
+    code: Currency Code
+    latest_price: Lastest Price
+    previous_price: Previous Price
+    actions: Actions
+    history: History
+    capture: Capture

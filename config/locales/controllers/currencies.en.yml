@@ -1,0 +1,4 @@
+en:
+  currencies:
+    captured: Latest details of all currencies captured successfully.
+    capture_error: There are some technical issues capturing the latest currency details. Please try again later.
