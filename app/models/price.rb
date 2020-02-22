@@ -1,11 +1,18 @@
 class Price < ApplicationRecord
   belongs_to :currency
 
+  validates :volume_24h, :volume, :transition_time, :status, :session, :prev_close, :last, :current_time, :bid, :ask, presence: true
+  validates :volume_24h, :volume, :session, :prev_close, :last, :bid, :ask, numericality: true 
+
   class << self
     def capture!
+      prices = []
+      currencies = Array Currency.select(:id, :code)
+
       # Atomic. All or none
+
       transaction do
-        Currency.select(:id, :code).each do |currency|
+        currencies.each do |currency|
           endpoint = URI "https://data.exchange.coinjar.com/products/#{currency.code}/ticker"
 
           begin
@@ -31,8 +38,6 @@ class Price < ApplicationRecord
               else
                 json[attribute] = json[attribute]
               end
-
-              price.assign_attributes(json)
             rescue TypeError, ArgumentError => e
               Rails.logger.error "API::DataError, #{e.message}"
               return false
@@ -42,8 +47,12 @@ class Price < ApplicationRecord
             end
           end
 
-          return unless price.save
+          price.assign_attributes(json)
+          prices << price
         end
+
+        return false unless (prices.compact.count == currencies.count && prices.all?(&:valid?))
+        prices.each(&:save)
       end
 
       true

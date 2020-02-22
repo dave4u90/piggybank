@@ -1,6 +1,8 @@
 class Currency < ApplicationRecord
   has_many :prices
 
+  validates :code, uniqueness: true
+
   def latest_price
     prices.last&.last
   end
