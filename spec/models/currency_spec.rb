@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Currency, type: :model do
+  let(:price)    { FactoryBot.create(:price) }
+  let(:currency) { FactoryBot.create(:currency_with_prices) }
+  
   it { is_expected.to have_many(:prices) }
 
   describe '#latest_price' do
-    let(:price)     { FactoryBot.create(:price) }
-    let!(:currency) { FactoryBot.create(:currency_with_prices) }
-
     it 'should return the latest price' do
       currency.prices << price
       expect(currency.latest_price).to eq(price.last)
@@ -19,9 +19,6 @@ RSpec.describe Currency, type: :model do
   end
 
   describe '#previous_price' do
-    let(:price)     { FactoryBot.create(:price) }
-    let!(:currency) { FactoryBot.create(:currency_with_prices) }
-
     it 'should return the last price' do
       currency.prices << price
       expect(currency.previous_price).to eq(price.prev_close)

@@ -1,24 +1,17 @@
 # README
+* Ruby version => 2.7
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* System dependencies => 
+Linux Platform/MacOS platform 
+MySQL 5.7+
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
+* Initial Setup
+  rvm install 2.7
+  rvm gemset create piggybank
+  rvm use 2.7@piggybank
+  bundle
+  rails db:create
+  rails:migrate
 
 * How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+rspec spec/
